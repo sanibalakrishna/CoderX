@@ -1,8 +1,10 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
+import spinner from "./../spinner.svg";
 
 export default function Home() {
   const [code, setCode] = useState("");
@@ -63,10 +65,10 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-row h-1/5 w-screen md:w-1/3 md:flex-col md:h-full">
-            <div>
-              <lable>input</lable>
+            <div className="flex-1/2 w-full h-2/5 md:mt-8">
+              <h1 className="text-center font-mono md:text-xl">Input</h1>
               <textarea
-                className="textarea textarea-bordered w-full h-full md:h-24"
+                className="textarea textarea-bordered  w-full md:h-full"
                 placeholder="Input"
                 value={input}
                 onChange={(e) => {
@@ -74,16 +76,22 @@ export default function Home() {
                 }}
               ></textarea>
             </div>
-            <div>
-              <label>output</label>
-              <textarea
-                className="textarea textarea-bordered w-full h-full md:h-24"
-                placeholder="Output"
-                value={output}
-                onChange={(e) => {
-                  setOutput(e.target.value);
-                }}
-              ></textarea>
+            <div className="flex-1/2 w-full h-2/5 md:mt-10">
+              <h1 className="text-center font-mono md:text-xl">Output</h1>
+              {loading ? (
+                <div className="flex justify-center">
+                  <Image src={spinner} alt="spinner" height={80} width={80} />
+                </div>
+              ) : (
+                <textarea
+                  className="textarea textarea-bordered w-full md:h-full "
+                  placeholder="Output"
+                  value={output}
+                  onChange={(e) => {
+                    setOutput(e.target.value);
+                  }}
+                ></textarea>
+              )}
             </div>
           </div>
         </div>
