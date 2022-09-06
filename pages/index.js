@@ -14,6 +14,7 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const options = { fontSize: fontsize };
 
   const compile = () => {
@@ -25,6 +26,7 @@ export default function Home() {
       .post("/api/compile", { code, lang, input })
       .then((response) => {
         setOutput(response.data.output);
+        setError(response.data.error);
       })
       .then(() => {
         setLoading(false);
@@ -77,7 +79,9 @@ export default function Home() {
               ></textarea>
             </div>
             <div className="flex-1/2 w-full h-2/5 md:mt-10">
-              <h1 className="text-center font-mono md:text-xl">Output</h1>
+              <h1 className="text-center font-mono md:text-xl">
+                {error ? "Error" : "Output"}
+              </h1>
               {loading ? (
                 <div className="flex justify-center">
                   <Image src={spinner} alt="spinner" height={80} width={80} />
@@ -86,7 +90,7 @@ export default function Home() {
                 <textarea
                   className="textarea textarea-bordered w-full md:h-full "
                   placeholder="Output"
-                  value={output}
+                  value={error ? error : output}
                   onChange={(e) => {
                     setOutput(e.target.value);
                   }}
