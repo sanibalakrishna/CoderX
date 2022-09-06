@@ -79,7 +79,13 @@ export default function Home() {
               ></textarea>
             </div>
             <div className="flex-1/2 w-full h-2/5 md:mt-10">
-              <h1 className="text-center font-mono md:text-xl">
+              <h1
+                className={
+                  error
+                    ? "text-center text-red-300  font-mono md:text-xl"
+                    : "text-center text-green-300 font-mono md:text-xl"
+                }
+              >
                 {error ? "Error" : "Output"}
               </h1>
               {loading ? (
