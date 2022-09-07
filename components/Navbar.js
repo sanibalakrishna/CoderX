@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { Image } from "next/image";
+import { MdOutlineDraw } from "react-icons/md";
+import { IoCodeSlashOutline } from "react-icons/io";
 
-function Navbar({ lang, setLang, theme, setTheme, compile }) {
+function Navbar({ lang, setLang, theme, setTheme, compile, drawtoggle }) {
   const handleClick = () => {
     if (theme === "vs-dark") {
       setTheme("light");
@@ -41,7 +44,12 @@ function Navbar({ lang, setLang, theme, setTheme, compile }) {
           </div>
         </div>
       </div>
-      <div className="navbar-end mr-4">
+      <div className="navbar-end mr-4 flex gap-x-3">
+        <label className="swap swap-flip text-3xl">
+          <input type="checkbox" onClick={drawtoggle} />
+          <div className="swap-on">📝</div>
+          <div className="swap-off">🧑🏽‍💻</div>
+        </label>
         <label className="swap swap-rotate">
           <input type="checkbox" value={theme} onClick={handleClick} />
 
